@@ -1,0 +1,29 @@
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: inherit;
+}
+
+.router {
+  width: 75%;
+  padding: 1%;
+}
+
+.side-nav {
+  width: 25%;
+  height: 100vh;
+  background-color: #023d26;
+}
+
+@media (max-width: 600px) or (min-width: 1500px) {
+  main {
+    flex-direction: column;
+    height: fit-content;
+  }
+  .side-nav {
+    width: 100%;
+    height: fit-content;
+  }
+}

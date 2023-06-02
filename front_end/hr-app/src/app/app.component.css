@@ -1,0 +1,10 @@
+.app{
+    width: 100%;
+}
+
+@media (min-width: 1500px) {
+    .app{
+        background-color: red;
+        width: 70%;
+    }
+}
