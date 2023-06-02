@@ -22,6 +22,9 @@ public class ExpenseClaimDetail implements Serializable {
 
 	private String description;
 
+	@Column(name="ec_type_id")
+	private String ecTypeId;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="submition_date")
 	private Date submitionDate;
@@ -32,11 +35,6 @@ public class ExpenseClaimDetail implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="ec_id")
 	private ExpenseClaim expenseClaim;
-
-	//bi-directional many-to-one association to ExpenseClaimType
-	@ManyToOne
-	@JoinColumn(name="ec_type_id")
-	private ExpenseClaimType expenseClaimType;
 
 	public ExpenseClaimDetail() {
 	}
@@ -55,6 +53,14 @@ public class ExpenseClaimDetail implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getEcTypeId() {
+		return this.ecTypeId;
+	}
+
+	public void setEcTypeId(String ecTypeId) {
+		this.ecTypeId = ecTypeId;
 	}
 
 	public Date getSubmitionDate() {
@@ -79,14 +85,6 @@ public class ExpenseClaimDetail implements Serializable {
 
 	public void setExpenseClaim(ExpenseClaim expenseClaim) {
 		this.expenseClaim = expenseClaim;
-	}
-
-	public ExpenseClaimType getExpenseClaimType() {
-		return this.expenseClaimType;
-	}
-
-	public void setExpenseClaimType(ExpenseClaimType expenseClaimType) {
-		this.expenseClaimType = expenseClaimType;
 	}
 
 }

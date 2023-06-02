@@ -30,6 +30,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
 			<groupId>hr.app</groupId>
 			<artifactId>hr.app.business.model</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -37,7 +44,7 @@
 
 		<dependency>
 			<groupId>hr.app</groupId>
-			<artifactId>hr.app.api.impl</artifactId>
+			<artifactId>hr.app.service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

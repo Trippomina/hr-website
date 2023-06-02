@@ -20,15 +20,12 @@ public class Employee implements Serializable {
 
 	private String address;
 
+	private String department;
+
 	private String email;
 
 	@Column(name="full_name")
 	private String fullName;
-
-	//bi-directional many-to-one association to Department
-	@ManyToOne
-	@JoinColumn(name="department_id")
-	private Department department;
 
 	//bi-directional many-to-one association to ExpenseClaim
 	@OneToMany(mappedBy="employee")
@@ -57,6 +54,14 @@ public class Employee implements Serializable {
 		this.address = address;
 	}
 
+	public String getDepartment() {
+		return this.department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
 	public String getEmail() {
 		return this.email;
 	}
@@ -71,14 +76,6 @@ public class Employee implements Serializable {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
-	}
-
-	public Department getDepartment() {
-		return this.department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
 	}
 
 	public List<ExpenseClaim> getExpenseClaims() {

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="hr.app.business.model">
-		<class>hr.app.business.model.Department</class>
 		<class>hr.app.business.model.Employee</class>
 		<class>hr.app.business.model.ExpenseClaim</class>
 		<class>hr.app.business.model.ExpenseClaimDetail</class>
-		<class>hr.app.business.model.ExpenseClaimType</class>
 		<class>hr.app.business.model.Leave</class>
 		<class>hr.app.business.model.LeaveType</class>
 
