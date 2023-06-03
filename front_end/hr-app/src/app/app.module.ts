@@ -7,6 +7,8 @@ import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { EmployeeService } from './core/services/employees.services';
 import { CoreModule } from './core/core.module';
+import { EmployeesModuleModule } from './employees-module/employees-module.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
+    SharedModule,
+    EmployeesModuleModule
   ],
   providers: [
     EmployeeService,

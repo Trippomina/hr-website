@@ -1,0 +1,12 @@
+.page-title{
+    color: #023D26;
+    text-align: center;
+    width: 100%;
+}
+
+
+@media (max-width: 600px){
+    .page-title{
+        font-size: 20px;
+    }
+}

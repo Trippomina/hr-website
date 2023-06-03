@@ -4,17 +4,5 @@ body {
   margin:0px;
 }
 
-.app{
-  width: 100%;
-}
-
-@media (min-width: 1500px) {
-  .app{
-    width: 80%;
-    display: flex;
-    margin-inline: 10%;
-  }
-}
-
 
 
