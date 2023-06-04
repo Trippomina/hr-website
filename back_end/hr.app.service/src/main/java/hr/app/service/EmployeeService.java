@@ -17,7 +17,6 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepo employeeRepo;
 
-	@Transactional
 	public List<Employee> findAllEmployees() {
 		try {
 			return employeeRepo.findAll();
@@ -25,6 +24,7 @@ public class EmployeeService {
 			throw new BusinessException(ex.getMessage());
 		}
 	}
+
 
 	@Transactional
 	public Employee addEmployee(Employee e) {

@@ -30,11 +30,11 @@ public class EmployeeController {
 			Thread.sleep(1000);
 			return ResponseEntity.ok()
 					.body(EmployeeTransformer.TransformToOutModelList(employeeService.findAllEmployees()));
-		} catch (BusinessException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
-		} catch (InterruptedException e) {
+		} catch (BusinessException ex) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+		} catch (InterruptedException ex) {
 			// TODO Auto-generated catch block
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}
 	}
 
@@ -44,21 +44,25 @@ public class EmployeeController {
 			Thread.sleep(1000);
 			return ResponseEntity.ok().body(EmployeeTransformer
 					.TransformToOutModel(employeeService.addEmployee(EmployeeTransformer.TransformFromInModel(in))));
-		} catch (BusinessException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
-		} catch (InterruptedException e) {
+		} catch (BusinessException ex) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+		} catch (InterruptedException ex) {
 			// TODO Auto-generated catch block
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}
 	}
 
 	@PutMapping(PathCte.EMPLOYEE_UPDATE_PATH)
 	public ResponseEntity<APIEmployeeOut> updateEmployee(@PathVariable("id") String id, @RequestBody APIEmployeeIn in) {
 		try {
+			Thread.sleep(1000);
 			return ResponseEntity.ok().body(EmployeeTransformer.TransformToOutModel(
 					employeeService.updateEmployee(EmployeeTransformer.TransformFromInModel(in), id)));
-		} catch (BusinessException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+		} catch (BusinessException ex) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+		} catch (InterruptedException ex) {
+			// TODO Auto-generated catch block
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}
 	}
 
@@ -66,8 +70,8 @@ public class EmployeeController {
 	public ResponseEntity<String> deleteEmployee(@PathVariable("id") String id) {
 		try {
 			return ResponseEntity.ok().body(employeeService.deleteEmployee(id));
-		} catch (BusinessException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+		} catch (BusinessException ex) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}
 	}
 
