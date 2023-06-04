@@ -1,0 +1,10 @@
+<div class="input-card">
+    <input
+      type="{{ validationType }}"
+      [(ngModel)]="value"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    />
+    <div class="error" *ngIf="error">{{ error }}</div>
+  </div>
+  

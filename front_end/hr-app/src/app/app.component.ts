@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from './core/models/employee.model';
-import { EmployeeService } from './core/services/employees.services';
+import { Employee } from './shared/models/employee.model'; 
+import { EmployeeService } from './shared/services/employees-service.service'; 
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 

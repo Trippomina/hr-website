@@ -1,0 +1,27 @@
+/* input-card.component.css */
+.input-card {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  
+  .input-card input {
+    max-height: 20px;
+    background-color: transparent;
+    padding: 10px;
+    border: 1px solid #E6E6E6;
+    border-radius: 4px;
+  }
+  
+  .input-card input:focus {
+    border: 1px solid #023D26;
+  }
+  
+  .input-card .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
