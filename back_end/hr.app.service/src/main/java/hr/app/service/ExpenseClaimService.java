@@ -1,17 +1,14 @@
 package hr.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import hr.app.business.model.Employee;
 import hr.app.business.model.ExpenseClaim;
-import hr.app.business.model.ExpenseClaimDetail;
 import hr.app.business.model.repository.EmployeeRepo;
 import hr.app.business.model.repository.ExpenseClaimRepo;
 import hr.app.service.exception.BusinessException;
@@ -27,9 +24,6 @@ public class ExpenseClaimService {
 
 	@Autowired
 	private EmployeeRepo employeeRepo;
-
-	@Autowired
-	private ExpenseClaimDetailService ecdService;
 
 	public List<ExpenseClaim> getExpenseClaims() {
 		try {
@@ -53,51 +47,48 @@ public class ExpenseClaimService {
 	}
 
 	@Transactional
-	public ExpenseClaim addExpenseClaim(ExpenseClaim ec) {
+	public ExpenseClaim addExpenseClaim(ExpenseClaim ec, String employeeId) {
 		try {
-			ec.setEcId(UUID.randomUUID().toString());
-			// create Employee object
-			Employee employee = new Employee();
-			employee.setEmployeeId(ec.getEmployeeId());
-			// add object to expense claim
-			ec.setEmployee(employee);
-			// save
-			ExpenseClaim res = ecRepo.save(ec);
-			if (res != null) {
-				// add details
-				List<ExpenseClaimDetail> details = ecdService.addExpenseClaimDetailList(ec.getExpenseClaimDetails(),
-						res.getEcId());
-				res.setExpenseClaimDetails(details);
-				return res;
+			Optional<Employee> o = employeeRepo.findById(employeeId);
+			if (o.isPresent()) {
+				ec.setEcId(UUID.randomUUID().toString());
+				ec.setEmployee(o.get());
+				ec.setExpenseClaimDetails(new ArrayList<>());
+				ExpenseClaim res = ecRepo.save(ec);
+				if (res != null) {
+					return res;
+				} else {
+					throw new DataModificationException("Failed to add expense claim.");
+				}
 			} else {
-				throw new DataModificationException("Failed to submit expense claim");
+				throw new ResourceNotFoundException("Employee does not exist.");
 			}
 		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());
+
 		}
 	}
 
 	@Transactional
-	public ExpenseClaim updateExpenseClaim(ExpenseClaim ec) {
+	public ExpenseClaim updateExpenseClaim(ExpenseClaim ec, String id) {
 		try {
-			// create Employee object
-			Employee employee = new Employee();
-			employee.setEmployeeId(ec.getEmployeeId());
-			// update object to expense claim
-			ec.setEmployee(employee);
-			// save
-			ExpenseClaim res = ecRepo.save(ec);
-			if (res != null) {
-				// update details
-				List<ExpenseClaimDetail> details = ecdService.updateExpenseClaimDetailList(ec.getExpenseClaimDetails(),
-						res.getEcId());
-				res.setExpenseClaimDetails(details);
-				return res;
+			Optional<ExpenseClaim> o = ecRepo.findById(id);
+			if (o.isPresent()) {
+				ec.setEcId(id);
+				ec.setEmployee(o.get().getEmployee());
+				ec.setExpenseClaimDetails(o.get().getExpenseClaimDetails());
+				ExpenseClaim res = ecRepo.save(ec);
+				if (res != null) {
+					return res;
+				} else {
+					throw new DataModificationException("Failed to update expense claim.");
+				}
 			} else {
-				throw new DataModificationException("Failed to submit expense claim");
+				throw new ResourceNotFoundException("Expense Claim [" + id + "] does not exist.");
 			}
 		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());
+
 		}
 	}
 
@@ -106,11 +97,10 @@ public class ExpenseClaimService {
 		try {
 			Optional<ExpenseClaim> o = ecRepo.findById(id);
 			if (o.isPresent()) {
-				ExpenseClaim ec = o.get();
-				ecRepo.delete(ec);
+				ecRepo.delete(o.get());
 				return "Expense claim has been deleted successfully.";
 			} else {
-				throw new ResourceNotFoundException("Expence claim does not exist.");
+				throw new ResourceNotFoundException("Expense claim does not exist.");
 			}
 		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());

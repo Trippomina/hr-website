@@ -4,26 +4,25 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the leave_type database table.
  * 
  */
 @Entity
-@Table(name="leave_type")
-@NamedQuery(name="LeaveType.findAll", query="SELECT l FROM LeaveType l")
+@Table(name = "leave_type")
+@NamedQuery(name = "LeaveType.findAll", query = "SELECT l FROM LeaveType l")
 public class LeaveType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="leave_type_id")
+	@Column(name = "leave_type_id")
 	private String leaveTypeId;
 
-	@Column(name="leave_type_name")
+	@Column(name = "leave_type_name")
 	private String leaveTypeName;
 
-	//bi-directional many-to-one association to Leave
-	@OneToMany(mappedBy="leaveType")
+	// bi-directional many-to-one association to Leave
+	@OneToMany(mappedBy = "leaveType")
 	private List<Leave> leaves;
 
 	public LeaveType() {

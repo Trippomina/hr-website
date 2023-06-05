@@ -12,5 +12,7 @@ import hr.app.business.model.Employee;
 public interface EmployeeRepo extends CrudRepository<Employee, String> {
 	public List<Employee> findAll();
 
+	public Optional<Employee> findByEmail(String email);
+
 	public Optional<Employee> findById(String id);
 }

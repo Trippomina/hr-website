@@ -41,96 +41,91 @@ public class LeaveService {
 			throw new BusinessException(ex.getMessage());
 		}
 	}
-	
-	public List<Leave> getLeavesByEmployee(String id){
+
+	public List<Leave> getLeavesByEmployee(String id) {
 		try {
 			Optional<Employee> o = employeeRepo.findById(id);
-			if(o.isPresent()) {
+			if (o.isPresent()) {
 				return leaveRepo.findByEmployeeId(id);
-			}
-			else {
+			} else {
 				throw new ResourceNotFoundException("Employee does not exist.");
 			}
-		}
-		catch(Exception ex) {
+		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());
 		}
 	}
 
-	
-	public List<Leave> getLeavesByEmployeeAndFromToDate(String id, Date dateFrom, Date dateTo){
+	public List<Leave> getLeavesByEmployeeAndFromToDate(String id, Date dateFrom, Date dateTo) {
 		try {
 			Optional<Employee> o = employeeRepo.findById(id);
-			if(o.isPresent()) {
+			if (o.isPresent()) {
 				return leaveRepo.findByEmployeeIdAndFromToDate(id, dateFrom, dateTo);
-			}
-			else {
+			} else {
 				throw new ResourceNotFoundException("Employee does not exist.");
 			}
-		}
-		catch(Exception ex) {
+		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());
 		}
 	}
-	
-	public List<StatisticsDTO> getLeavesStatistics(){
+
+	public List<StatisticsDTO> getLeavesStatistics() {
 		try {
 			return leaveRepo.findLeavesStatistics();
-		}		catch(Exception ex) {
+		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());
 		}
 	}
-	
-	
-	
+
 	@Transactional
-	public Leave addLeave(Leave l) {
+	public Leave addLeave(Leave l, String employeeId, String leaveType) {
 		try {
 			l.setLeaveId(UUID.randomUUID().toString());
-			//add the leave type object
-			LeaveType lt = new LeaveType();
-			lt.setLeaveTypeId(l.getLeaveTypeId());
-			l.setLeaveType(lt);
-			//add the employee object
-			Employee e = new Employee();
-			e.setEmployeeId(l.getEmployeeId());
-			l.setEmployee(e);
-			//save
-			Leave res = leaveRepo.save(l);
-			if ( res != null) {
-				return res;
+			Optional<Employee> o = employeeRepo.findById(employeeId);
+			if (o.isPresent()) {
+				l.setEmployee(o.get());
+				// Lazy fetching
+				LeaveType lt = new LeaveType();
+				lt.setLeaveTypeId(leaveType);
+				l.setLeaveType(lt);
+				Leave res = leaveRepo.save(l);
+				if (res != null) {
+					return res;
+				} else {
+					throw new DataModificationException("Failed to add leave request.");
+				}
 			} else {
-				throw new DataModificationException("Failed to add leave request.");
+				throw new DataModificationException("employee does not exist.");
 			}
 		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());
 		}
 	}
-	
+
 	@Transactional
-	public Leave updateLeave(Leave l, String id) {
+	public Leave updateLeave(Leave l, String id, String leaveType) {
 		try {
-			l.setLeaveId(id);
-			//add the leave type object
-			LeaveType lt = new LeaveType();
-			lt.setLeaveTypeId(l.getLeaveTypeId());
-			l.setLeaveType(lt);
-			//add the employee object
-			Employee e = new Employee();
-			e.setEmployeeId(l.getEmployeeId());
-			l.setEmployee(e);
-			//save-update
-			Leave res = leaveRepo.save(l);
-			if ( res != null) {
-				return res;
+			Optional<Leave> o = leaveRepo.findById(id);
+			if (o.isPresent()) {
+				l.setLeaveId(id);
+				l.setEmployee(o.get().getEmployee());
+				// Lazy fetching
+				LeaveType lt = new LeaveType();
+				lt.setLeaveTypeId(leaveType);
+				l.setLeaveType(lt);
+				Leave res = leaveRepo.save(l);
+				if (res != null) {
+					return res;
+				} else {
+					throw new DataModificationException("Failed to update leave.");
+				}
 			} else {
-				throw new DataModificationException("Failed to update leave.");
+				throw new ResourceNotFoundException("Leave request [" + id + "] does not exist.");
 			}
 		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());
 		}
 	}
-	
+
 	@Transactional
 	public String deleteLeave(String id) {
 		try {

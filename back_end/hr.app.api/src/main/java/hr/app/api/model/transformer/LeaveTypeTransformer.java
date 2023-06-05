@@ -16,12 +16,12 @@ public class LeaveTypeTransformer {
 		return list.stream().map(l -> TransformToOutModel(l)).collect(Collectors.toList());
 
 	}
-	
+
 	public static LeaveType TransformFromInModel(APILeaveType l) {
 		LeaveType res = new LeaveType();
 		res.setLeaveTypeId(l.getId());
 		res.setLeaveTypeName(l.getName());
 		return res;
 	}
-	
+
 }

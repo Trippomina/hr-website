@@ -15,17 +15,16 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 		System.out.println("test");
 	}
-	
+
 	@Bean
 	public WebMvcConfigurer configure() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry reg) {
-				reg.addMapping("/**").allowedMethods("GET", "POST", "PUT","DELETE")
-						.allowedOrigins("*")
+				reg.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedOrigins("*")
 						.allowedHeaders("*");
 			}
 		};
-	} 
+	}
 
 }

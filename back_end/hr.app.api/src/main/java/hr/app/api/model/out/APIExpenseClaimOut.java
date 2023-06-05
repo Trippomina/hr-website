@@ -1,6 +1,5 @@
 package hr.app.api.model.out;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -15,11 +14,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonPropertyOrder({ "id", "employee_name", "submition_date", "description", "total", "status", "details" })
+@JsonPropertyOrder({ "id", "employee_name", "description", "total", "submission_date", "status", "details" })
 public class APIExpenseClaimOut extends APIExpenseClaim {
 	private String id;
 	private String employee_name;
 	private List<APIExpenseClaimDetailOut> details;
-	private BigDecimal total;
-
 }

@@ -1,7 +1,5 @@
 package hr.app.api.model.out;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import hr.app.api.model.APIEmployee;
@@ -17,6 +15,4 @@ import lombok.Setter;
 @JsonPropertyOrder({ "id", "full_name", "department", "email", "address" })
 public class APIEmployeeOut extends APIEmployee {
 	private String id;
-	 private List<APIExpenseClaimDetailOut> details;
-
 }

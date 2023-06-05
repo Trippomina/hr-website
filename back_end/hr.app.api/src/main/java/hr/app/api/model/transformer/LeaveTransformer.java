@@ -11,11 +11,9 @@ import hr.app.business.model.Leave;
 public class LeaveTransformer {
 	public static Leave TransformFromInModel(APILeaveIn l) {
 		Leave res = new Leave();
-		res.setEmployeeId(l.getEmployee_id());
-		res.setLeaveTypeId(l.getLeave_type_id());
 		res.setDateFrom(l.getDate_from());
 		res.setDateTo(l.getDate_to());
-		res.setDays(DateUtils.daysBetween(l.getDate_from(), l.getDate_to()));
+		res.setDays(DateUtils.getDaysBetween(l.getDate_from(), l.getDate_to()));
 		res.setNote(l.getNote());
 		return res;
 	}

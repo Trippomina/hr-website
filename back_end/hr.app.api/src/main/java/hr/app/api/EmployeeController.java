@@ -39,8 +39,8 @@ public class EmployeeController {
 	}
 
 	@PostMapping(PathCte.EMPLOYEE_ADD_PATH)
-	public ResponseEntity<APIEmployeeOut> addEmployee(@RequestBody APIEmployeeIn in) {
-		try {	
+	public ResponseEntity<APIEmployeeOut> createEmployee(@RequestBody APIEmployeeIn in) {
+		try {
 			Thread.sleep(1000);
 			return ResponseEntity.ok().body(EmployeeTransformer
 					.TransformToOutModel(employeeService.addEmployee(EmployeeTransformer.TransformFromInModel(in))));

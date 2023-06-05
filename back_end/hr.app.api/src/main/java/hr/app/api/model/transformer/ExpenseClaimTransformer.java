@@ -26,12 +26,10 @@ public class ExpenseClaimTransformer {
 
 	public static ExpenseClaim TransformFromInModel(APIExpenseClaimIn ed) {
 		ExpenseClaim res = new ExpenseClaim();
-		res.setEmployeeId(ed.getEmployee_id());
 		res.setSubmissionDate(ed.getSubmission_date());
 		res.setDescription(ed.getDescription());
 		res.setStatus(ed.getStatus());
 		res.setTotal(ed.getTotal());
-		res.setExpenseClaimDetails(ExpenseClaimDetailTransformer.TransformFromInModelList(ed.getDetails()));
 		return res;
 	}
 }

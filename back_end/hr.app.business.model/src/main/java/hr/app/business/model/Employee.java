@@ -4,18 +4,17 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the employee database table.
  * 
  */
 @Entity
-@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e")
+@NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="employee_id")
+	@Column(name = "employee_id")
 	private String employeeId;
 
 	private String address;
@@ -24,15 +23,15 @@ public class Employee implements Serializable {
 
 	private String email;
 
-	@Column(name="full_name")
+	@Column(name = "full_name")
 	private String fullName;
 
-	//bi-directional many-to-one association to ExpenseClaim
-	@OneToMany(mappedBy="employee")
+	// bi-directional many-to-one association to ExpenseClaim
+	@OneToMany(mappedBy = "employee")
 	private List<ExpenseClaim> expenseClaims;
 
-	//bi-directional many-to-one association to Leave
-	@OneToMany(mappedBy="employee")
+	// bi-directional many-to-one association to Leave
+	@OneToMany(mappedBy = "employee")
 	private List<Leave> leaves;
 
 	public Employee() {

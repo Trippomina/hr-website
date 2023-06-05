@@ -6,19 +6,18 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the expense_claim database table.
  * 
  */
 @Entity
-@Table(name="expense_claim")
-@NamedQuery(name="ExpenseClaim.findAll", query="SELECT e FROM ExpenseClaim e")
+@Table(name = "expense_claim")
+@NamedQuery(name = "ExpenseClaim.findAll", query = "SELECT e FROM ExpenseClaim e")
 public class ExpenseClaim implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ec_id")
+	@Column(name = "ec_id")
 	private String ecId;
 
 	private String description;
@@ -26,15 +25,15 @@ public class ExpenseClaim implements Serializable {
 	private String status;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="submission_date")
+	@Column(name = "submission_date")
 	private Date submissionDate;
 
 	private BigDecimal total;
 
-	//bi-directional many-to-one association to Employee
+	// bi-directional many-to-one association to Employee
 	@Transient
 	private String employeeId;
-	
+
 	public String getEmployeeId() {
 		return employeeId;
 	}
@@ -42,13 +41,13 @@ public class ExpenseClaim implements Serializable {
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="employee_id")
+	@JoinColumn(name = "employee_id")
 	private Employee employee;
 
-	//bi-directional many-to-one association to ExpenseClaimDetail
-	@OneToMany(mappedBy="expenseClaim")
+	// bi-directional many-to-one association to ExpenseClaimDetail
+	@OneToMany(mappedBy = "expenseClaim")
 	private List<ExpenseClaimDetail> expenseClaimDetails;
 
 	public ExpenseClaim() {

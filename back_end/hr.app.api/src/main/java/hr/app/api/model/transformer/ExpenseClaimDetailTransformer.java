@@ -24,7 +24,6 @@ public class ExpenseClaimDetailTransformer {
 
 	public static ExpenseClaimDetail TransformFromInModel(APIExpenseClaimDetailIn ecd) {
 		ExpenseClaimDetail res = new ExpenseClaimDetail();
-		res.setEcId(ecd.getEc_id());
 		res.setEcType(ecd.getEc_type());
 		res.setSubmissionDate(ecd.getSubmission_date());
 		res.setDescription(ecd.getDescription());
@@ -33,6 +32,6 @@ public class ExpenseClaimDetailTransformer {
 	}
 
 	public static List<ExpenseClaimDetail> TransformFromInModelList(List<APIExpenseClaimDetailIn> list) {
-		return list.stream().map(ecd-> TransformFromInModel(ecd)).collect(Collectors.toList());
+		return list.stream().map(ecd -> TransformFromInModel(ecd)).collect(Collectors.toList());
 	}
 }

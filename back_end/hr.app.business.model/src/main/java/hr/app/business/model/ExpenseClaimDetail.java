@@ -5,45 +5,51 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
 /**
  * The persistent class for the expense_claim_detail database table.
  * 
  */
+
+//@SqlResultSetMapping(name = "StatisticsDTOMapping", classes = @ConstructorResult(targetClass = StatisticsDTO.class, columns = {
+//		@ColumnResult(name = "type", type = String.class), @ColumnResult(name = "typeTotal", type = Long.class) }))
+
+@NamedNativeQuery(name = "ExpenseClaimDetail.findExpenseClaimsStatistics", query = "SELECT ec_type as type, COUNT(total) AS typeTotal\r\n"
+		+ "FROM expense_claim_detail\r\n" + "GROUP BY ec_type;", resultSetMapping = "StatisticsDTOMapping")
+
 @Entity
-@Table(name="expense_claim_detail")
-@NamedQuery(name="ExpenseClaimDetail.findAll", query="SELECT e FROM ExpenseClaimDetail e")
+@Table(name = "expense_claim_detail")
+@NamedQuery(name = "ExpenseClaimDetail.findAll", query = "SELECT e FROM ExpenseClaimDetail e")
 public class ExpenseClaimDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ec_dtl_id")
+	@Column(name = "ec_dtl_id")
 	private String ecDtlId;
 
 	private String description;
 
-	@Column(name="ec_type")
+	@Column(name = "ec_type")
 	private String ecType;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="submission_date")
+	@Column(name = "submission_date")
 	private Date submissionDate;
 
 	private BigDecimal total;
 
-	//bi-directional many-to-one association to ExpenseClaim
-	@Transient
-	private String ecId;
-	
-	public String getEcId() {
-		return ecId;
-	}
-
-	public void setEcId(String ecId) {
-		this.ecId = ecId;
-	}
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ec_id")
+	// bi-directional many-to-one association to ExpenseClaim
+//	@Transient
+//	private String ecId;
+//	
+//	public String getEcId() {
+//		return ecId;
+//	}
+//
+//	public void setEcId(String ecId) {
+//		this.ecId = ecId;
+//	}
+	@ManyToOne()
+	@JoinColumn(name = "ec_id")
 	private ExpenseClaim expenseClaim;
 
 	public ExpenseClaimDetail() {

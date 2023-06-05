@@ -13,8 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class APIExpenseClaim {
-	 private Date submission_date;
-	 private String description;
-	 private String status;
-	 private BigDecimal total;
+	private Date submission_date;
+	private String description;
+	private BigDecimal total;
+	private String status;
 }

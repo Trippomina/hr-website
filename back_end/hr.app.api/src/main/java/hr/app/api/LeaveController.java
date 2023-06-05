@@ -33,10 +33,11 @@ public class LeaveController {
 	LeaveService leaveService;
 
 	@PostMapping(PathCte.LEAVE_ADD_PATH)
-	public ResponseEntity<APILeaveOut> createLeave(@RequestBody APILeaveIn in) {
+	public ResponseEntity<APILeaveOut> createLeave(@PathVariable("employeeId") String employeeId,
+			@PathVariable("leaveType") String leaveType, @RequestBody APILeaveIn in) {
 		try {
-			return ResponseEntity.ok().body(LeaveTransformer
-					.TransformToOutModel(leaveService.addLeave(LeaveTransformer.TransformFromInModel(in))));
+			return ResponseEntity.ok().body(LeaveTransformer.TransformToOutModel(
+					leaveService.addLeave(LeaveTransformer.TransformFromInModel(in), employeeId, leaveType)));
 		} catch (BusinessException ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}
@@ -88,10 +89,11 @@ public class LeaveController {
 	}
 
 	@PutMapping(PathCte.LEAVE_UPDATE_PATH)
-	public ResponseEntity<APILeaveOut> updateLeave(@PathVariable("id") String id, @RequestBody APILeaveIn in) {
+	public ResponseEntity<APILeaveOut> updateLeave(@PathVariable("id") String id,
+			@PathVariable("leaveType") String leaveType, @RequestBody APILeaveIn in) {
 		try {
 			Leave leave = LeaveTransformer.TransformFromInModel(in);
-			Leave updatedLeave = leaveService.updateLeave(leave, id);
+			Leave updatedLeave = leaveService.updateLeave(leave, id, leaveType);
 			return ResponseEntity.ok().body(LeaveTransformer.TransformToOutModel(updatedLeave));
 		} catch (BusinessException ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
@@ -107,16 +109,15 @@ public class LeaveController {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
 		}
 	}
-	
+
 	@GetMapping(PathCte.LEAVE_GET_STATISTICS_PATH)
 	public ResponseEntity<List<StatisticsDTO>> getLeavesStatistics() {
-	    try {
-	        List<StatisticsDTO> statistics = leaveService.getLeavesStatistics();
-	        return ResponseEntity.ok().body(statistics);
-	    } catch (BusinessException ex) {
-	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
-	    }
+		try {
+			List<StatisticsDTO> statistics = leaveService.getLeavesStatistics();
+			return ResponseEntity.ok().body(statistics);
+		} catch (BusinessException ex) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+		}
 	}
-
 
 }

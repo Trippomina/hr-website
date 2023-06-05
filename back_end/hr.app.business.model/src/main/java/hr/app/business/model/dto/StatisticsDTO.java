@@ -1,14 +1,13 @@
 package hr.app.business.model.dto;
 
-
 public class StatisticsDTO {
 	private String type;
 	private long typeTotal;
-	
-    public StatisticsDTO(String type, Long typeTotal) {
-        this.type = type;
-        this.typeTotal = typeTotal;
-    }
+
+	public StatisticsDTO(String type, Long typeTotal) {
+		this.type = type;
+		this.typeTotal = typeTotal;
+	}
 
 	public String getType() {
 		return type;
@@ -25,6 +24,5 @@ public class StatisticsDTO {
 	public void setTypeTotal(long typeTotal) {
 		this.typeTotal = typeTotal;
 	}
-    
-    
+
 }

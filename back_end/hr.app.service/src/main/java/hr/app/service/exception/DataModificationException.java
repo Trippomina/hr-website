@@ -13,8 +13,8 @@ public class DataModificationException extends RuntimeException {
 	public DataModificationException(String message) {
 		super(message);
 	}
-	
-    public DataModificationException(String message, Throwable cause) {
-        super(message, cause);
-    }
+
+	public DataModificationException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

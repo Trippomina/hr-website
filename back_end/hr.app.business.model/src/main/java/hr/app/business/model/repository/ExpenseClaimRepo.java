@@ -9,17 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import hr.app.business.model.ExpenseClaim;
 
-
-@Repository	
+@Repository
 public interface ExpenseClaimRepo extends CrudRepository<ExpenseClaim, String> {
 
 	public final static String FIND_BY_EMPLOYEE_ID = "SELECT * FROM expense_claim WHERE employee_id = :id";
-	
+
 	public List<ExpenseClaim> findAll();
-	
+
 	@Query(value = FIND_BY_EMPLOYEE_ID, nativeQuery = true)
 	public List<ExpenseClaim> findByEmployeeId(@Param("id") String id);
-	
+
 //    @Query(nativeQuery = true, name = "ExpenseClaim.findExpenseClaimStatistics")
 //    List<StatisticsDTO> findLeavesStatistics();
 }
