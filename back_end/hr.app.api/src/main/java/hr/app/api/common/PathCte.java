@@ -21,5 +21,13 @@ public class PathCte {
 	public static final String LEAVE_UPDATE_PATH = LEAVE_PATH + "/update/{id}";
 	public static final String LEAVE_DELETE_PATH = LEAVE_PATH + "/delete/{id}";
 	public static final String LEAVE_GET_STATISTICS_PATH = LEAVE_PATH + "/statistics";
+	// ExpenseClaim Controller Paths
+	public static final String EXPENSE_CLAIM_PATH = MAIN_PATH + "/expense-claim";
+	public static final String EXPENSE_CLAIM_GET_ALL_PATH = EXPENSE_CLAIM_PATH + "/all";
+	public static final String EXPENSE_CLAIM_GET_BY_EMPLOYEE_PATH = EXPENSE_CLAIM_PATH + "/{employeeId}";
+	public static final String EXPENSE_ADD_CLAIM_PATH = EXPENSE_CLAIM_PATH + "/add";
+	public static final String EXPENSE_UPDATE_CLAIM_PATH = EXPENSE_CLAIM_PATH + "/update";
+	public static final String EXPENSE_DELETE_CLAIM_PATH = EXPENSE_CLAIM_PATH + "/delete/{id}";
+	
 
 }

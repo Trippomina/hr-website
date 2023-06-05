@@ -32,8 +32,6 @@ public interface LeaveRepo extends CrudRepository<Leave, String> {
 	public List<Leave> findByEmployeeIdAndFromToDate(@Param("id") String id, @Param("dateFrom") Date dateFrom,
 			@Param("dateTo") Date dateTo);
 	
-//	@Query(value = FIND_ALL_LEAVES_TYPES_COUNTS, nativeQuery = true)
-//	public List<Object[]> findLeavesStatistics();
 	
     @Query(nativeQuery = true, name = "Leave.findLeavesStatistics")
     List<StatisticsDTO> findLeavesStatistics();

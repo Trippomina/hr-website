@@ -22,17 +22,27 @@ public class ExpenseClaimDetail implements Serializable {
 
 	private String description;
 
-	@Column(name="ec_type_id")
-	private String ecTypeId;
+	@Column(name="ec_type")
+	private String ecType;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="submition_date")
-	private Date submitionDate;
+	@Column(name="submission_date")
+	private Date submissionDate;
 
 	private BigDecimal total;
 
 	//bi-directional many-to-one association to ExpenseClaim
-	@ManyToOne
+	@Transient
+	private String ecId;
+	
+	public String getEcId() {
+		return ecId;
+	}
+
+	public void setEcId(String ecId) {
+		this.ecId = ecId;
+	}
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ec_id")
 	private ExpenseClaim expenseClaim;
 
@@ -55,20 +65,20 @@ public class ExpenseClaimDetail implements Serializable {
 		this.description = description;
 	}
 
-	public String getEcTypeId() {
-		return this.ecTypeId;
+	public String getEcType() {
+		return this.ecType;
 	}
 
-	public void setEcTypeId(String ecTypeId) {
-		this.ecTypeId = ecTypeId;
+	public void setEcType(String ecType) {
+		this.ecType = ecType;
 	}
 
-	public Date getSubmitionDate() {
-		return this.submitionDate;
+	public Date getSubmissionDate() {
+		return this.submissionDate;
 	}
 
-	public void setSubmitionDate(Date submitionDate) {
-		this.submitionDate = submitionDate;
+	public void setSubmissionDate(Date submissionDate) {
+		this.submissionDate = submissionDate;
 	}
 
 	public BigDecimal getTotal() {

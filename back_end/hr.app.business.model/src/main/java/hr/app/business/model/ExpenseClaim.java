@@ -26,13 +26,24 @@ public class ExpenseClaim implements Serializable {
 	private String status;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="submition_date")
-	private Date submitionDate;
+	@Column(name="submission_date")
+	private Date submissionDate;
 
 	private BigDecimal total;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne
+	@Transient
+	private String employeeId;
+	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="employee_id")
 	private Employee employee;
 
@@ -67,12 +78,12 @@ public class ExpenseClaim implements Serializable {
 		this.status = status;
 	}
 
-	public Date getSubmitionDate() {
-		return this.submitionDate;
+	public Date getSubmissionDate() {
+		return this.submissionDate;
 	}
 
-	public void setSubmitionDate(Date submitionDate) {
-		this.submitionDate = submitionDate;
+	public void setSubmissionDate(Date submissionDate) {
+		this.submissionDate = submissionDate;
 	}
 
 	public BigDecimal getTotal() {

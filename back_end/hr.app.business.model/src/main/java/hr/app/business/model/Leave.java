@@ -7,52 +7,39 @@ import hr.app.business.model.dto.StatisticsDTO;
 
 import java.util.Date;
 
-
 /**
  * The persistent class for the leave database table.
  * 
  */
 
-@SqlResultSetMapping(
-	    name = "StatisticsDTOMapping",
-	    classes = @ConstructorResult(
-	        targetClass = StatisticsDTO.class,
-	        columns = {
-	            @ColumnResult(name = "type", type = String.class),
-	            @ColumnResult(name = "typeTotal", type = Long.class)
-	        }
-	    )
-	)
-	@NamedNativeQuery(
-	    name = "Leave.findLeavesStatistics",
-	    query = "SELECT lt.leave_type_name AS type, COUNT(*) AS typeTotal FROM leave l JOIN leave_type lt ON l.leave_type_id = lt.leave_type_id GROUP BY lt.leave_type_name",
-	    resultSetMapping = "StatisticsDTOMapping"
-	)
+@SqlResultSetMapping(name = "StatisticsDTOMapping", classes = @ConstructorResult(targetClass = StatisticsDTO.class, columns = {
+		@ColumnResult(name = "type", type = String.class), @ColumnResult(name = "typeTotal", type = Long.class) }))
+@NamedNativeQuery(name = "Leave.findLeavesStatistics", query = "SELECT lt.leave_type_name AS type, COUNT(*) AS typeTotal FROM leave l JOIN leave_type lt ON l.leave_type_id = lt.leave_type_id GROUP BY lt.leave_type_name", resultSetMapping = "StatisticsDTOMapping")
 @Entity
-@NamedQuery(name="Leave.findAll", query="SELECT l FROM Leave l")
+@NamedQuery(name = "Leave.findAll", query = "SELECT l FROM Leave l")
 public class Leave implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="leave_id")
+	@Column(name = "leave_id")
 	private String leaveId;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_from")
+	@Column(name = "date_from")
 	private Date dateFrom;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="date_to")
+	@Column(name = "date_to")
 	private Date dateTo;
 
 	private Integer days;
 
 	private String note;
 
-	//bi-directional many-to-one association to Employee
+	// bi-directional many-to-one association to Employee
 	@Transient
 	private String employeeId;
-	
+
 	public String getEmployeeId() {
 		return employeeId;
 	}
@@ -62,13 +49,13 @@ public class Leave implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="employee_id")
+	@JoinColumn(name = "employee_id")
 	private Employee employee;
 
-	//bi-directional many-to-one association to LeaveType
-	@Transient 
+	// bi-directional many-to-one association to LeaveType
+	@Transient
 	private String leaveTypeId;
-	
+
 	public String getLeaveTypeId() {
 		return leaveTypeId;
 	}
@@ -78,7 +65,7 @@ public class Leave implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="leave_type_id")
+	@JoinColumn(name = "leave_type_id")
 	private LeaveType leaveType;
 
 	public Leave() {
