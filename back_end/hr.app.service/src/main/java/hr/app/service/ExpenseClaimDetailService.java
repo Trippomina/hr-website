@@ -46,7 +46,7 @@ public class ExpenseClaimDetailService {
 					throw new DataModificationException("Failed to add expense claim detail.");
 				}
 			} else {
-				throw new ResourceNotFoundException("Employee does not exist.");
+				throw new ResourceNotFoundException("Claim does not exist.");
 			}
 		} catch (Exception ex) {
 			throw new BusinessException(ex.getMessage());

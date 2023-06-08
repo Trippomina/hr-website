@@ -1,7 +1,10 @@
-// app.state.ts
-
+import { initialEmployeeState } from '../reducers/employee.reducers';
 import { EmployeeState } from './employee.state';
 
 export interface AppState {
-  employees: EmployeeState;
+  employee: EmployeeState;
+}
+
+export const initialState: AppState = {
+  employee: initialEmployeeState
 }

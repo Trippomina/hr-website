@@ -13,9 +13,9 @@ import hr.app.business.model.dto.StatisticsDTO;
 
 @Repository
 public interface LeaveRepo extends CrudRepository<Leave, String> {
-	public final static String FIND_BY_FROM_TO_DATE = "SELECT * FROM leave WHERE date_from >= :dateFrom AND date_to <= :dateTo";
+	public static final String FIND_BY_FROM_TO_DATE = "SELECT * FROM leave WHERE date_from >= CAST(:dateFrom AS DATE) AND date_to <= CAST(:dateTo AS DATE)";
 	public final static String FIND_BY_EMPLOYEE_ID = "SELECT * FROM leave WHERE employee_id = :id";
-	public final static String FIND_BY_EMPLOYEE_ID_AND_FROM_TO_DATE = "SELECT * FROM leave WHERE employee_id >= :id AND date_from =< :dateFrom AND date_to = :dateTo ";
+	public static final String FIND_BY_EMPLOYEE_ID_AND_FROM_TO_DATE = "SELECT * FROM leave WHERE employee_id = :id AND date_from >= CAST(:dateFrom AS DATE) AND date_to <= CAST(:dateTo AS DATE)";
 	public final static String FIND_ALL_LEAVES_TYPES_COUNTS = "SELECT lt.leave_type_name AS type, COUNT(*) AS typeTotal FROM leave l JOIN leave_type lt ON l.leave_type_id = lt.leave_type_id GROUP BY lt.leave_type_name";
 
 	public List<Leave> findAll();

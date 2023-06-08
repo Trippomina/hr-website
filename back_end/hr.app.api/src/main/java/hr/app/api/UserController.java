@@ -21,9 +21,13 @@ public class UserController {
 	@GetMapping(PathCte.USER_LOGIN_PATH)
 	public ResponseEntity<APIEmployeeOut> login(@PathVariable("email") String email) {
 		try {
+			Thread.sleep(1000);
 			return ResponseEntity.ok().body(EmployeeTransformer.TransformToOutModel(userService.login(email)));
 		} catch (BusinessException ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
 	}
 }

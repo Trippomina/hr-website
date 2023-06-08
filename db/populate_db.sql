@@ -1,39 +1,34 @@
--- Insert basic leave types into the leave_type table
-INSERT INTO leave_type (leave_type_id, leave_type_name)
-VALUES
-    ('VAC', 'Vacation Leave'),
-    ('SICK', 'Sick Leave'),
-    ('MAT', 'Maternity/Paternity Leave'),
-    ('BEREAV', 'Bereavement Leave'),
-    ('PH', 'Public Holidays'),
-    ('UNPAID', 'Unpaid Leave');  
- -- Insert departments into the department table
-INSERT INTO department (department_id, department_name)
-VALUES
-    ('HR', 'Human Resources'),
-    ('IT', 'Information Technology'),
-    ('SALES', 'Sales');
- -- Insert employees into the employee table
-INSERT INTO employee (employee_id, department_id, full_name, email, address)
-VALUES
-    ('EMP1', 'HR', 'Ahmed Abdullah', 'ahmed@example.com', 'Riyadh'),
-    ('EMP2', 'IT', 'Mohammed Al-Shammari', 'mohammed@example.com', 'Jeddah'),
-    ('EMP3', 'SALES', 'Nora Al-Harbi', 'nora@example.com', 'Dammam'),
-    ('EMP4', 'HR', 'Fatima Al-Marzouq', 'fatima@example.com', 'Riyadh'),
-    ('EMP5', 'IT', 'Ali Al-Otaibi', 'ali@example.com', 'Jeddah'),
-    ('EMP6', 'SALES', 'Layla Al-Qahtani', 'layla@example.com', 'Dammam'),
-    ('EMP7', 'HR', 'Mahmoud Al-Aqeel', 'mahmoud@example.com', 'Riyadh'),
-    ('EMP8', 'IT', 'Saleh Al-Ghamdi', 'saleh@example.com', 'Jeddah'),
-    ('EMP9', 'SALES', 'Sara Khalid', 'sara@example.com', 'Dammam'),
-    ('EMP10', 'HR', 'Omar Ahmed', 'omar@example.com', 'Riyadh'),
-    ('EMP11', 'IT', 'Lina Hasan', 'lina@example.com', 'Jeddah'),
-    ('EMP12', 'SALES', 'Yousef Al-Mansour', 'yousef@example.com', 'Dammam'),
-    ('EMP13', 'HR', 'Hala Al-Faris', 'hala@example.com', 'Riyadh'),
-    ('EMP14', 'IT', 'Nasser Saleh', 'nasser@example.com', 'Jeddah'),
-    ('EMP15', 'SALES', 'Maha Al-Qahtani', 'maha@example.com', 'Dammam');
- -- Insert expense types into the expense_claim_type table 
-INSERT INTO expense_claim_type (ec_type_id, ec_type_name)
-VALUES
-   ('hotel', 'Hotel expense'),
-   ('car_rental', 'Car rental expense');
-   
+INSERT INTO leave_type (leave_type_id, leave_type_name) VALUES
+('LT001', 'Annual Leave'),
+('LT002', 'Sick Leave'),
+('LT003', 'Maternity Leave'),
+('LT004', 'Paternity Leave'),
+('LT005', 'Bereavement Leave');
+
+INSERT INTO employee (employee_id, full_name, department, email, address) VALUES
+('E001', 'John Doe', 'HR', 'john.doe@example.com', '123 Main St'),
+('E002', 'Jane Smith', 'Marketing', 'jane.smith@example.com', '456 Elm St'),
+('E003', 'Michael Johnson', 'Finance', 'michael.johnson@example.com', '789 Oak St'),
+('E004', 'Emily Davis', 'IT', 'emily.davis@example.com', '987 Pine St'),
+('E005', 'David Wilson', 'Sales', 'david.wilson@example.com', '654 Cedar St');
+
+INSERT INTO leave (leave_id, employee_id, leave_type_id, date_from, date_to, days, note) VALUES
+('L001', 'E001', 'LT001', '2023-01-05', '2023-01-10', 6, 'Vacation'),
+('L002', 'E002', 'LT002', '2023-02-15', '2023-02-16', 2, 'Fever'),
+('L003', 'E003', 'LT003', '2023-03-20', '2023-04-05', 17, 'Maternity leave'),
+('L004', 'E004', 'LT001', '2023-05-10', '2023-05-12', 3, 'Family trip'),
+('L005', 'E005', 'LT002', '2023-06-01', '2023-06-05', 5, 'Flu');
+
+INSERT INTO expense_claim (ec_id, employee_id, submission_date, description, total, status) VALUES
+('EC001', 'E001', '2023-01-10', 'Office supplies', 50.00, 'Pending'),
+('EC002', 'E002', '2023-02-20', 'Travel expenses', 200.00, 'Approved'),
+('EC003', 'E003', '2023-03-25', 'Client dinner', 150.00, 'Approved'),
+('EC004', 'E004', '2023-05-15', 'Conference registration', 300.00, 'Pending'),
+('EC005', 'E005', '2023-06-05', 'Team lunch', 100.00, 'Pending');
+
+INSERT INTO expense_claim_detail (ec_dtl_id, ec_id, submission_date, ec_type, description, total) VALUES
+('ED001', 'EC001', '2023-01-10', 'Office Supplies', 'Pens, notebooks, and stapler', 30.00),
+('ED002', 'EC001', '2023-01-10', 'Office Supplies', 'Printer ink cartridges', 20.00),
+('ED003', 'EC002', '2023-02-20', 'Travel Expenses', 'Flight tickets', 150.00),
+('ED004', 'EC002', '2023-02-20', 'Travel Expenses', 'Taxi fare', 50.00),
+('ED005', 'EC003', '2023-03-25', 'Client Dinner', 'Restaurant bill', 150.00);

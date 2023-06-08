@@ -1,11 +1,7 @@
-// employee.state.ts
-
-import { Employee } from "src/app/shared/models/employee.model";
+import { EmployeeIn } from "src/app/shared/models/in/employee-in.model"; 
 
 export interface EmployeeState {
-  employees: Employee[];
-  CurrentEmploye: Employee;
-  loadingAddUpdate: boolean;
-  loadingList: boolean;
-  message: string;
+  employee: EmployeeIn;
+  loading: boolean;
+  error: any;
 }

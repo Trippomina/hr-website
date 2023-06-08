@@ -2,32 +2,34 @@ import { createSelector } from '@ngrx/store';
 import { AppState } from '../state/app.state';
 import { EmployeeState } from '../state/employee.state';
 
+
+
 // Select the employee state from the overall application state
-export const selectEmployeeState = (state: AppState) => state.employees;
+export const selectEmployeeState = (state: AppState) => state.employee;
 
 // Select the employees array from the employee state
-export const selectEmployees = createSelector(
+export const selectEmployee = createSelector(
     selectEmployeeState,
-    (state: EmployeeState) => {return state.employees;}
+    (state: EmployeeState) => {return state.employee;}
 );
 
 // Select the current employee array from the employee state
-export const selectCurrentEmployee = createSelector(
+export const selectLoading = createSelector(
     selectEmployeeState,
-    (state: EmployeeState) => {return state.CurrentEmploye;}
+    (state: EmployeeState) => {return state.loading;}
 );
 
-export const selectLoadingList = createSelector(
+export const selectError = createSelector(
     selectEmployeeState,
-    (state: EmployeeState) => {return state.loadingList;}
+    (state: EmployeeState) => {return state.error;}
 );
 
-export const selectLoadingAddUpdate = createSelector(
-    selectEmployeeState,
-    (state: EmployeeState) => {return state.loadingAddUpdate;}
-);
+// export const selectLoadingAddUpdate = createSelector(
+//     selectEmployeeState,
+//     (state: EmployeeState) => {return state.loadingAddUpdate;}
+// );
 
-export const selectMessage = createSelector(
-    selectEmployeeState,
-    (state: EmployeeState) => {return state.message;}
-);
+// export const selectMessage = createSelector(
+//     selectEmployeeState,
+//     (state: EmployeeState) => {return state.message;}
+// );

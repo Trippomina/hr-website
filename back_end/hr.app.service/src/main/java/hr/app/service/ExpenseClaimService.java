@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import hr.app.business.model.Employee;
 import hr.app.business.model.ExpenseClaim;
+import hr.app.business.model.ExpenseClaimDetail;
 import hr.app.business.model.repository.EmployeeRepo;
+import hr.app.business.model.repository.ExpenseClaimDetailRepo;
 import hr.app.business.model.repository.ExpenseClaimRepo;
 import hr.app.service.exception.BusinessException;
 import hr.app.service.exception.DataModificationException;
@@ -18,9 +20,14 @@ import hr.app.service.exception.ResourceNotFoundException;
 //This Service uses ExpenseClaimDetailService
 @Service
 public class ExpenseClaimService {
+	@Autowired
+	private ExpenseClaimDetailService ecdService;
 
 	@Autowired
 	private ExpenseClaimRepo ecRepo;
+
+	@Autowired
+	private ExpenseClaimDetailRepo ecdRepo;
 
 	@Autowired
 	private EmployeeRepo employeeRepo;
@@ -53,17 +60,21 @@ public class ExpenseClaimService {
 			if (o.isPresent()) {
 				ec.setEcId(UUID.randomUUID().toString());
 				ec.setEmployee(o.get());
-				ec.setExpenseClaimDetails(new ArrayList<>());
 				ExpenseClaim res = ecRepo.save(ec);
-				if (res != null) {
-					return res;
-				} else {
-					throw new DataModificationException("Failed to add expense claim.");
+				List<ExpenseClaimDetail> details = new ArrayList<>();
+				for (ExpenseClaimDetail ecd : ec.getExpenseClaimDetails()) {
+					details.add(ecdService.addExpenseClaimDetail(ecd, res.getEcId()));
 				}
+				res.setExpenseClaimDetails(details);
+				res = ecRepo.save(res);
+				return res;
 			} else {
 				throw new ResourceNotFoundException("Employee does not exist.");
 			}
-		} catch (Exception ex) {
+
+		} catch (
+
+		Exception ex) {
 			throw new BusinessException(ex.getMessage());
 
 		}
@@ -76,8 +87,14 @@ public class ExpenseClaimService {
 			if (o.isPresent()) {
 				ec.setEcId(id);
 				ec.setEmployee(o.get().getEmployee());
-				ec.setExpenseClaimDetails(o.get().getExpenseClaimDetails());
+				ecdRepo.deleteAll(o.get().getExpenseClaimDetails());
+				System.out.println("deleted");
+				for (ExpenseClaimDetail ecd : ec.getExpenseClaimDetails()) {
+					ec.getExpenseClaimDetails().add(ecdService.addExpenseClaimDetail(ecd, id));
+					System.out.println("added");
+				}
 				ExpenseClaim res = ecRepo.save(ec);
+				System.out.println("saved");
 				if (res != null) {
 					return res;
 				} else {

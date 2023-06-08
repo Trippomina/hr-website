@@ -54,8 +54,9 @@ public class LeaveController {
 	}
 
 	@GetMapping(PathCte.LEAVE_GET_BY_EMPLOYEE_PATH)
-	public ResponseEntity<List<APILeaveOut>> getLeavesByEmployee(@PathVariable("employeeId") String employeeId) {
+	public ResponseEntity<List<APILeaveOut>> getLeavesByEmployee(@PathVariable("employeeId") String employeeId) throws InterruptedException {
 		try {
+			Thread.sleep(1000);
 			List<Leave> leaves = leaveService.getLeavesByEmployee(employeeId);
 			return ResponseEntity.ok().body(LeaveTransformer.TransformToOutModelList(leaves));
 		} catch (BusinessException ex) {
@@ -92,17 +93,22 @@ public class LeaveController {
 	public ResponseEntity<APILeaveOut> updateLeave(@PathVariable("id") String id,
 			@PathVariable("leaveType") String leaveType, @RequestBody APILeaveIn in) {
 		try {
+			Thread.sleep(1000);
 			Leave leave = LeaveTransformer.TransformFromInModel(in);
 			Leave updatedLeave = leaveService.updateLeave(leave, id, leaveType);
 			return ResponseEntity.ok().body(LeaveTransformer.TransformToOutModel(updatedLeave));
 		} catch (BusinessException ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
 	}
 
 	@DeleteMapping(PathCte.LEAVE_DELETE_PATH)
-	public ResponseEntity<String> deleteLeave(@PathVariable("id") String id) {
+	public ResponseEntity<String> deleteLeave(@PathVariable("id") String id) throws InterruptedException {
 		try {
+			Thread.sleep(1000);
 			String result = leaveService.deleteLeave(id);
 			return ResponseEntity.ok().body(result);
 		} catch (BusinessException ex) {

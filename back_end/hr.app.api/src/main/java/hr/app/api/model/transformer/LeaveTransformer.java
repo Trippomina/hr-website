@@ -26,7 +26,7 @@ public class LeaveTransformer {
 		APILeaveOut res = new APILeaveOut();
 		res.setId(l.getLeaveId());
 		res.setEmployee_name(l.getEmployee().getFullName());
-		res.setLeave_type(l.getLeaveType().getLeaveTypeName());
+		res.setLeave_type(LeaveTypeTransformer.TransformToOutModel(l.getLeaveType()));
 		res.setDate_from(l.getDateFrom());
 		res.setDate_to(l.getDateTo());
 		res.setDays(l.getDays());

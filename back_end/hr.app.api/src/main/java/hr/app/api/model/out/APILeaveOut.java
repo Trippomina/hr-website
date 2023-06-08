@@ -3,6 +3,7 @@ package hr.app.api.model.out;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import hr.app.api.model.APILeave;
+import hr.app.api.model.APILeaveType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,6 @@ import lombok.Setter;
 public class APILeaveOut extends APILeave {
 	private String id;
 	private String employee_name;
-	private String leave_type;
+	private APILeaveType leave_type;
 	private int days;
 }

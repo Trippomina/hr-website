@@ -24,6 +24,7 @@ public class ExpenseClaimDetailTransformer {
 
 	public static ExpenseClaimDetail TransformFromInModel(APIExpenseClaimDetailIn ecd) {
 		ExpenseClaimDetail res = new ExpenseClaimDetail();
+		res.setEcDtlId(ecd.getId());
 		res.setEcType(ecd.getEc_type());
 		res.setSubmissionDate(ecd.getSubmission_date());
 		res.setDescription(ecd.getDescription());

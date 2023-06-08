@@ -30,6 +30,7 @@ public class ExpenseClaimTransformer {
 		res.setDescription(ed.getDescription());
 		res.setStatus(ed.getStatus());
 		res.setTotal(ed.getTotal());
+		res.setExpenseClaimDetails(ExpenseClaimDetailTransformer.TransformFromInModelList(ed.getDetails()));
 		return res;
 	}
 }

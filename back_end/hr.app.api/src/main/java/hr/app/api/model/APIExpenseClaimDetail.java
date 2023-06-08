@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class APIExpenseClaimDetail {
+	private String id;
 	private Date submission_date;
 	private String ec_type;
 	private String description;
